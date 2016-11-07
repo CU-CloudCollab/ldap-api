@@ -1,7 +1,7 @@
 {
   "name": "ldap-api",
   "version": "1.0.0",
-  "description": "CU LDAP",
+  "description": "LDAP API",
   "main": "example.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
