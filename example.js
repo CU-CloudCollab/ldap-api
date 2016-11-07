@@ -24,6 +24,12 @@ client.search('ou=People,o=Cornell University, c=US', opts, function(err, res) {
   });
   res.on('end', function(result) {
     console.log('status: ' + result.status);
+    console.log("The end is nigh!");
+	client.unbind(function(err) {
+	  //assert.ifError(err);
+	});
   });
+  console.log("fin");
 });
+
 
