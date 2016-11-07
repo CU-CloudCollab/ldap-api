@@ -1,0 +1,89 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Cornell LDAP REST API",
+        "description": "Access to Cornell LDAP via REST",
+        "version": "1.0.0"
+    },
+    "host": "ldap-api.training.cucloud.net",
+    "schemes": [
+        "https",
+        "http"
+    ],
+    "basePath": "/v1",
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/person": {
+            "get": {
+                "summary": "LDAP person",
+                "description": "Example description\n",
+                "parameters": [
+                    {
+                        "name": "netid",
+                        "in": "query",
+                        "description": "Cornell netID",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The set of LDAP properties for this person associated with this netid",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Person"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Person": {
+            "type": "object",
+            "properties": {
+                "uid": {
+                    "type": "string",
+                    "description": "Cornell netid"
+                },
+                "cn": {
+                    "type": "string",
+                    "description": "LDAP Common Name"
+                },
+                "displayName": {
+                    "type": "string",
+                    "description": "Display name"
+                },
+                "cornelleducampusphone": {
+                    "type": "string",
+                    "description": "Campus phone number"
+                }
+            }
+        },
+        "Error": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "fields": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
