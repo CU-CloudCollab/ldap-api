@@ -11,7 +11,7 @@ export S3BUCKET="cu-hackathon-2016-11-ldap"
 export LAMBDA_ROLE="arn:aws:iam::101334791012:role/lambda-ldap-api"
 #
 # Arbitrary name for your Lambda function.
-export LAMBDA_NAME="lambda-node-template"
+export LAMBDA_NAME="lambda-node-template-kps1"
 #
 ##########################################################################
 

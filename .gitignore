@@ -10,3 +10,6 @@
 output.txt
 lambda-code.zip
 /node_modules/*
+awscli-bundle.zip
+awscli-bundle/packages
+awscli-bundle
