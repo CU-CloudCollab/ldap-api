@@ -16,7 +16,7 @@ exports.myhandler = (event, context, callback) => {
   });
 
   var opts = {
-    filter: '(uid='+event.netid+')',
+    filter: '(|(uid='+event.netid+')(displayname=*'+event.name+'*))',
     scope: 'sub',
     attributes: ['dn', 'sn', 'cn', 'givenname']
   };
