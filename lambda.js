@@ -4,7 +4,7 @@ var aws = require('aws-sdk');
 aws.config.region = 'us-east-1';
 var ec2Client = new aws.EC2();
 
-exports.myhandler = (event, context) => {
+exports.myhandler = (event, context, callback) => {
 
   console.log('Received event:', JSON.stringify(event, null, 2));
   console.log("\n\nInside handler\n\n");
@@ -16,16 +16,15 @@ exports.myhandler = (event, context) => {
   });
 
   var opts = {
-    filter: '(uid=kps1)',
+    filter: '(|(uid='+event.netid+')(displayname=*'+event.name+'*))',
     scope: 'sub',
     attributes: ['dn', 'sn', 'cn', 'givenname']
   };
 
   client.search('ou=People,o=Cornell University, c=US', opts, function(err, res) {
-    //assert.ifError(err);
-
     res.on('searchEntry', function(entry) {
-      console.log('entry: ' + JSON.stringify(entry.object));
+      console.log('entry: ' + entry.object);
+      callback(null, entry.object);
     });
     res.on('searchReference', function(referral) {
       console.log('referral: ' + referral.uris.join());
@@ -36,9 +35,7 @@ exports.myhandler = (event, context) => {
     res.on('end', function(result) {
       console.log('status: ' + result.status);
       console.log("The end is nigh!");
-  	client.unbind(function(err) {
-  	  //assert.ifError(err);
-  	});
+  	  client.unbind(function(err) {});
     });
     console.log("fin");
   });
